@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- Meanubar Start -->
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <a class="navbar-brand text-white" href="#">EMPLOYEE APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/register}">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/all}">VIEW ALL</a>
+      </li>
+     
+    </ul>
+    
+  </div>
+</nav>
+
+<!-- Meanu bar End -->
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<h2>EMPLOYEE REGISTER PAGE</h2>
+			</div>
+			<div class="card-body">
+			
+				<form id="empForm" th:action="@{/employee/save}" method="POST">
+					<div class="row">
+						<div class="col-3">
+							<lable>NAME</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" name="empName" id="empName" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="empNameError"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<lable>SALARY</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" name="empSal" id="empSal" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="empSalError"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<lable>EMAILID</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" name="empMail" id="empMail" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="empMailError"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<lable>DEPT</lable>
+						</div>
+						<div class="col-4">
+							<select name="empDept" id="empDept" class="form-control">
+								<option value="">--SELECT--</option>
+								<option value="DEV">DEV</option>
+								<option value="QA">QA</option>
+								<option value="BA">BA</option>
+								<option value="MS">MS</option>
+							</select>
+						</div>
+						<div class="col-5">
+							<span id="empDeptError"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<lable>ADDRESS</lable>
+						</div>
+						<div class="col-4">
+							<textarea name="empAddr" id="empAddr">  </textarea>
+						</div>
+						<div class="col-5">
+							<span id="empAddrError"></span>
+						</div>
+					</div>
+					<input type="submit"  value="Add Employee" class="btn btn-success" />
+				</form>
+			</div>
+			<div th:if="${message!=null}" class="card-footer bg-info text-white">
+			<span th:text="${message}"></span>
+			</div>
+		</div>
+		<!-- card End -->
+	</div>
+	
+	<script type="text/javascript">	
+	 
+	$(document).ready(function(){
+		
+		//1.hide error section
+		$("#empNameError").hide();
+		$("#empSalError").hide();
+		$("#empDeptError").hide();
+		$("#empAddrError").hide();
+		$("#empMailError").hide();
+		//2.defind the error variable
+		var empNameError=false;
+		var empSalError=false;
+		var empDeptError=false;
+		var empAddrError=false;
+		var empMailError=false;
+		//3.defind variable funtion
+		function variable_empName(){
+			var val=$("#empName").val();
+			var exp=/^[A-Z]{2,9}$/;
+			if(val==''){
+				$("#empNameError").show();
+				$("#empNameError").html("Plese Enter <b>Employee Name</b>");
+				$("#empNameError").css('color','red');
+				empNameError=false;//error
+			}else if(!exp.test(val)){
+				$("#empNameError").show();
+				$("#empNameError").html("<b>Only Upercase 2 to 4 charter</b>");
+				$("#empNameError").css('color','red');
+				empNameError=false;//error
+			}else{
+				$("#empNameError").hide();
+				empNameError=true;//No error
+			}
+			return empNameError;
+		}
+		
+		function variable_empSalary(){
+			var val=$("#empSal").val();
+			var exp=/^[1-9]+[0-9]*(\.[0-9+])?$/;
+			if(val==''){
+				$("#empSalError").show();
+				$("#empSalError").html("Plese Enter <b>Employee Salary</b>");
+				$("#empSalError").css('color','red');
+				empSalError=false;//error
+			}else if(!exp.test(val)){
+				$("#empSalError").show();
+				$("#empSalError").html("<b>Employee Salary</b>");
+				$("#empSalError").css('color','red');
+				empSalError=false;//error
+			}else{
+				$("#empSalError").hide();
+				empSalError=true;//No error
+			}
+			return empSalError;
+		}
+		function variable_empMail(){
+			var val=$("#empMail").val();
+			var exp=/^[a-zA-Z0-9\.\-\_]+\@[a-z]+\.[a-z\.]{2,10}$/;
+			if(val==''){
+				$("#empMailError").show();
+				$("#empMailError").html("Please Enter valid <b>Email ID</b>");
+				$("#empMailError").css('color','red');
+				empMailError=false;//error
+			}else if(!exp.test(val)){
+				$("#empMailError").show();
+				$("#empMailError").html("<b>Employee email ID</b>");
+				$("#empMailError").css('color','red');
+				empMailError=false;//error
+			}else{
+				 $.ajax({
+						url:'validateMail',
+						data:{'email':val},
+						success:function(resTxt){
+							if(resTxt!=''){
+								$("#empMailError").show();
+								$("#empMailError").html(resTxt);
+								$("#empMailError").css('color','red');
+								empMailError=false;//error
+							}else{
+								$("#empMailError").hide();
+								empMailError = true;
+							}
+						}
+					 });
+			}
+			return empSalError;
+		}
+		function variable_empDep(){
+			var val=$("#empDept").val();				
+			if(val==''){
+				$("#empDeptError").show();
+				$("#empDeptError").html("Plese Choose <b>Employee Department</b>");
+				$("#empDeptError").css('color','red');
+				empDeptError=false;//error
+			}else{
+				$("#empDeptError").hide();
+				empDeptError=true;//No error
+			}
+			return empDeptError;
+		}
+		
+		function variable_empAddr(){
+			var val=$("#empAddr").val();
+			var exp = /^[A-Za-z0-9\s\.\-\_\,\#]{10,250}$/;
+			if(val==''){
+				$("#empAddrError").show();
+				$("#empAddrError").html("<b>Employee Address</b>");
+				$("#empAddrError").css('color','red');
+				empAddrError=false;//error
+			}else if(!exp.test(val)){
+				$("#empAddrError").show();
+				$("#empAddrError").html("<b>Min 10 and Max 250 chars only</b>");
+				$("#empAddrError").css('color','red');
+				empAddrError=false;//error
+			}else{
+				$("#empAddrError").hide();
+				empAddrError=true;//No error
+			}
+			return empAddrError;
+		}
+		
+		//4. Link with action Event
+		$("#empName").keyup(function(){
+			var value=$(this).val();
+			$(this).val(value.toUpperCase());
+			variable_empName();
+		});
+		
+		$("#empSal").keyup(function(){
+			variable_empSalary();
+		});
+		$("#empMail").keyup(function(){
+			variable_empMail();
+		});
+		$("#empDept").change(function(){			
+			variable_empDep();
+		});
+		
+		$("#empAddr").keyup(function(){
+			variable_empAddr();
+		});
+		
+		//5. on submit-validate all functions 
+		$("#empForm").submit(function(){
+			variable_empName();
+			variable_empSalary();
+			variable_empDep();
+			variable_empAddr();
+			variable_empMail()
+			if(empNameError&&empSalError&&empAddrError&&empDeptError&&empMailError)
+				return true;
+			else
+				return false;
+		});
+	});
+	</script>
+</body>	
+</html>

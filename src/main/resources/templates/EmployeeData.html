@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- Meanubar Start -->
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <a class="navbar-brand text-white" href="#">EMPLOYEE APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/register}">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/all}">VIEW ALL</a>
+      </li>
+     
+    </ul>
+    
+  </div>
+</nav>
+
+<!-- Meanu bar End -->
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<h3>EMPLOYEE DATA PAGE</h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-hover">
+					<tr class="bg-info text-white">
+						<th>ID</th>
+						<th>NAME</th>
+						<th>SAL</th>
+						<th>Email</th>
+						<th>DEPT</th>
+						<th>ADDR</th>
+						<th>HRA</th>
+						<th>TA</th>
+						<th>OPERATIONS</th>
+					</tr>
+					<tr th:each="ob:${list}">
+						<td th:text="${ob.empId}"></td>
+						<td th:text="${ob.empName}"></td>
+						<td th:text="${ob.empSal}"></td>
+						<td th:text="${ob.empMail}"></td>
+						<td th:text="${ob.empDept}"></td>
+						<td th:text="${ob.empAddr}"></td>
+						<td th:text="${ob.empHra}"></td>
+						<td th:text="${ob.empTa}"></td>
+						<td>
+						<a th:href="@{/employee/delete(id=${ob.empId})}" class="btn btn-danger">DELETE </a>|
+						 <a th:href="@{/employee/edit(id=${ob.empId})}" class="btn btn-success"> EDIT </a></td>
+					</tr>
+				</table>
+			</div>
+				<div th:if="${msg!=null}" class="card-footer bg-info text-white">
+				<span th:text="${msg}"></span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

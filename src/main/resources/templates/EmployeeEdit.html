@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- Meanubar Start -->
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <a class="navbar-brand text-white" href="#">EMPLOYEE APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/register}">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/employee/all}">VIEW ALL</a>
+      </li>
+     
+    </ul>
+    
+  </div>
+</nav>
+
+<!-- Meanu bar End -->
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<h2>EMPLOYEE EDIT PAGE</h2>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/employee/update}" method="POST" th:object="${employee}">
+					<div class="row">
+						<div class="col-3">
+							<lable>ID</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{empId}" class="form-control" readOnly="readonly"/>
+						</div>
+						<div class="col-5">
+							<span id="Error"></span>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-3">
+							<lable>NAME</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{empName}" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="Error"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<lable>SALARY</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{empSal}" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="Error"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<lable>EMAILID</lable>
+						</div>
+						<div class="col-4">
+							<input type="text" name="empMail" id="empMail" class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="empMailError"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<lable>DEPT</lable>
+						</div>
+						<div class="col-4">
+							<select th:field="*{empDept}" class="form-control">
+								<option value="">--SELECT--	</option>
+								<option value="DEV">DEV</option>
+								<option value="QA">QA</option>
+								<option value="BA">BA</option>
+								<option value="MS">MS</option>
+							</select>
+						</div>
+						<div class="col-5">
+							<span id="Error"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<lable>ADDRESS</lable>
+						</div>
+						<div class="col-4">
+							<textarea th:field="*{empAddr}"></textarea>
+						</div>
+						<div class="col-5">
+							<span id="Error"></span>
+						</div>
+					</div>
+					<input type="submit" value="Update Employee" class="btn btn-success" />
+				</form>
+			</div>
+			
+		</div>
+		<!-- card End -->
+	</div>
+</body>
+</html>
